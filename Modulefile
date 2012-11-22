@@ -1,0 +1,8 @@
+name    'bryanjswift-ssh'
+version '0.0.1'
+source 'git://github.com/bryanjswift/puppet-ssh'
+author 'bryanjswift'
+license 'Apache License, Version 2.0'
+summary 'Install and configure sshd service from managed repositories'
+description 'Install and configure sshd service from managed repositories'
+project_page 'UNKNOWN'
