@@ -13,20 +13,27 @@ define ssh::user(
     }
   }
 
-  if (!$user_name) {
-    $un = $name
-  } else {
-    $un = $user_name
+  $group_name = $group ? {
+    false   => $un,
+    ""      => $un,
+    default => $group,
   }
 
   user { $un:
     comment  => $full_name,
     groups   => $groups,
+    group    => $group_name,
     home     => $home_dir,
     name     => $un,
     password => $password,
     shell    => "/bin/bash",
     require  => [Group[$groups]],
+  }
+
+  if ($home_dir) {
+    ssh::user::home { $name:
+      user_name => $name,
+    }
   }
 
 }

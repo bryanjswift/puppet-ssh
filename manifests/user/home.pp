@@ -4,10 +4,9 @@ define ssh::user::home(
   $manage_ssh = true,
 ) {
 
-  if ($home_path != "") {
-    $hp = $home_path
-  } else {
-    $hp = "/home/$user_name"
+  $home_path = $path ? {
+    ''      => "/home/$user_name",
+    default => $path,
   }
 
   File {
@@ -17,15 +16,15 @@ define ssh::user::home(
     mode    => 0755,
   }
 
-  file { $hp:
-    path    => $hp,
+  file { $home_path:
+    path    => $home_path,
     require => [Ssh::User[$user_name]],
   }
 
   if ($manage_ssh) {
-    file { "$hp/.ssh":
-      path    => "$hp/.ssh",
-      require => [File[$hp]],
+    file { "$home_path/.ssh":
+      path    => "$home_path/.ssh",
+      require => [File[$home_path]],
     }
   }
 
