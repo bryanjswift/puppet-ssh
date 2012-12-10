@@ -1,7 +1,7 @@
 define ssh::user::home(
-  $user_name  => "",
-  $home_path  => "",
-  $manage_ssh => true,
+  $path       = '',
+  $user_name  = '',
+  $manage_ssh = true,
 ) {
 
   if ($home_path != "") {
