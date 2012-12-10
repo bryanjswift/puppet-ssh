@@ -1,10 +1,10 @@
 define ssh::user(
-  $name      = "",
-  $full_name = "",
+  $name      = '',
+  $full_name = '',
   $groups    = [],
-  $group     = false,
-  $home_dir  = false,
-  $password  = "",
+  $group     = '',
+  $home_dir  = '',
+  $password  = '',
 ) {
 
   if ($groups != []) {
@@ -13,26 +13,38 @@ define ssh::user(
     }
   }
 
+  if ($group != '') {
+    group { $group:
+      ensure => present,
+    }
+  }
+
   $group_name = $group ? {
-    false   => $un,
-    ""      => $un,
+    ''      => $name,
     default => $group,
   }
 
-  user { $un:
+  user { $name:
     comment  => $full_name,
     groups   => $groups,
-    group    => $group_name,
+    gid      => $group_name,
     home     => $home_dir,
-    name     => $un,
+    name     => $name,
     password => $password,
     shell    => "/bin/bash",
     require  => [Group[$groups]],
   }
 
-  if ($home_dir) {
+  if ($home_dir == true) {
     ssh::user::home { $name:
-      user_name => $name,
+      user_name  => $name,
+      group_name => $group_name,
+    }
+  } elsif ($home_dir) {
+    ssh::user::home { $name:
+      path       => $home_dir,
+      user_name  => $name,
+      group_name => $group_name,
     }
   }
 

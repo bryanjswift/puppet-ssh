@@ -1,6 +1,7 @@
 define ssh::user::home(
   $path       = '',
   $user_name  = '',
+  $group_name = '',
   $manage_ssh = true,
 ) {
 
@@ -9,16 +10,21 @@ define ssh::user::home(
     default => $path,
   }
 
+  $gn = $group_name ? {
+    ''      => $user_name,
+    default => $group_name,
+  }
+
   File {
-    ensure  => directory,
-    group   => "bryanjswift",
-    owner   => "bryanjswift",
-    mode    => 0755,
+    ensure => directory,
+    group  => $gn,
+    owner  => $user_name,
+    mode   => 0755,
   }
 
   file { $home_path:
     path    => $home_path,
-    require => [Ssh::User[$user_name]],
+    require => [User[$user_name], Group[$gn]],
   }
 
   if ($manage_ssh) {
