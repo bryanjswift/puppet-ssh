@@ -31,7 +31,7 @@ define ssh::user(
     home     => $home_dir,
     name     => $name,
     password => $password,
-    shell    => "/bin/bash",
+    shell    => '/bin/bash',
     require  => [Group[$groups]],
   }
 
