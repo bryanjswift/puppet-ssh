@@ -13,15 +13,13 @@ define ssh::user(
     }
   }
 
-  if ($group != '') {
-    group { $group:
-      ensure => present,
-    }
-  }
-
   $group_name = $group ? {
     ''      => $name,
     default => $group,
+  }
+
+  group { $group_name:
+    ensure => present,
   }
 
   user { $name:
