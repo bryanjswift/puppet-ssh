@@ -1,10 +1,11 @@
 define ssh::user(
-  $name      = '',
   $full_name = '',
-  $groups    = [],
   $group     = '',
+  $groups    = [],
   $home_dir  = '',
+  $name      = '',
   $password  = '',
+  $rules     = undef,
 ) {
 
   if ($groups != []) {
