@@ -55,8 +55,7 @@ PermitEmptyPasswords no
 ChallengeResponseAuthentication no
 
 # Change to no to disable tunnelled clear text passwords
-#PasswordAuthentication no
-PasswordAuthentication yes
+PasswordAuthentication <%= "#{ssh_allow_password}" %>
 
 # Kerberos options
 #KerberosAuthentication no
