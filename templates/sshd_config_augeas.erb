@@ -1,0 +1,25 @@
+<%
+if ssh_ports.is_a? Array
+  i = 0
+  ssh_ports.each do |ssh_port|
+    i = i + 1
+    puts "set Port[#{i}] #{ssh_port}\n"
+  end
+elsif ssh_ports != ''
+  puts "set Port #{ssh_ports}\n"
+end
+-%>
+set PermitRootLogin <%= "#{ssh_allow_root}" %>
+set PasswordAuthentication <%= "#{ssh_allow_password}" %>
+set UseDNS no
+<%
+if ssh_users.is_a? Array
+  i = 0
+  ssh_users.each do |ssh_user|
+    i = i + 1
+    puts "set AllowUsers[#{i}] #{ssh_user}\n"
+  end
+elsif ssh_users != ''
+  puts "set AllowUsers #{ssh_users}\n"
+end
+-%>

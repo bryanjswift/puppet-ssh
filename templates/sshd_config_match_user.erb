@@ -1,0 +1,8 @@
+defnode vuser Match[Condition/User = '<%= "#{name}" -%>']
+<% if rules.is_a? Array -%>
+<% rules.each do |rule| -%>
+<%= "set $vuser/Settings/#{rule}" %>
+<% end -%>
+<% elsif rules != '' -%>
+<%= "set $vuser/Settings/#{rule}" %>
+<% end -%>
