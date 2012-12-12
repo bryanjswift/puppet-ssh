@@ -4,7 +4,9 @@
 
 # What ports, IPs and protocols we listen for
 <% if ssh_ports.is_a? Array -%>
-Port <% ssh_ports.each do |ssh_port| -%><%= " #{ssh_port}" %><% end %>
+<% ssh_ports.each do |ssh_port| -%>
+<%= "Port #{ssh_port}" %>
+<% end -%>
 <% else ssh_ports != '' -%>
 Port <%= "#{ssh_ports}" %>
 <% end -%>
