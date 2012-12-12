@@ -1,9 +1,9 @@
 class ssh::config {
 
-  $ssh_users = $ssh::users
-  $ssh_ports = $ssh::ports
   $ssh_allow_password = $ssh::allow_password
   $ssh_allow_root = $ssh::allow_root
+  $ssh_ports = $ssh::ports
+  $ssh_users = $ssh::users
 
   file { "sshd_config":
     ensure  => present,
