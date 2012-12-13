@@ -49,7 +49,7 @@ define ssh::user(
 
   if ($rules) {
     augeas { "sshd_match_user_${name}":
-      context => "/files/${ssh::params::service_config}",
+      context => "/files${ssh::params::service_config}",
       changes => template('ssh/sshd_config_match_user.erb'),
       require => [Class['ssh::config']],
       notify  => [Class['ssh::service']],
