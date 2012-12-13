@@ -8,7 +8,7 @@ class ssh::config {
   /* This needs to be thought through a bit more
    * I'm not sure how reliant on the defaults I want to be * /
   augeas { "sshd_config":
-    context  => "/files/${ssh::params::service_config}",
+    context  => "/files${ssh::params::service_config}",
     template => template('ssh/sshd_config_augeas.erb'),
     require => Class["ssh::install"],
     notify  => Class["ssh::service"],

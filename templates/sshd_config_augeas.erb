@@ -11,6 +11,7 @@ end
 -%>
 set PermitRootLogin <%= "#{ssh_allow_root}" %>
 set PasswordAuthentication <%= "#{ssh_allow_password}" %>
+set Protocol 2
 set UseDNS no
 <%
 if ssh_users.is_a? Array
