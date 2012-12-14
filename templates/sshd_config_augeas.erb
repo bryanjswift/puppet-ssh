@@ -1,14 +1,17 @@
 <%
 if ssh_ports.is_a? Array
+  puts "rm Port"
   i = 0
   ssh_ports.each do |ssh_port|
     i = i + 1
-    puts "set Port[#{i}] #{ssh_port}\n"
+%>
+set Port[<%= i %>] <%= ssh_port %>
+<%
   end
-elsif ssh_ports != ''
-  puts "set Port #{ssh_ports}\n"
-end
--%>
+elsif ssh_ports != '' 
+%>
+set Port[last()] <%= ssh_ports %>
+<% end %>
 set PermitRootLogin <%= "#{ssh_allow_root}" %>
 set PasswordAuthentication <%= "#{ssh_allow_password}" %>
 set Protocol 2
