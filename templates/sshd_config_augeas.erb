@@ -4,14 +4,15 @@ if ssh_ports.is_a? Array
   i = 0
   ssh_ports.each do |ssh_port|
     i = i + 1
-%>
+    %>
 set Port[<%= i %>] <%= ssh_port %>
-<%
+    <%
   end
 elsif ssh_ports != '' 
-%>
+  %>
 set Port[last()] <%= ssh_ports %>
-<% end %>
+  <%
+end %>
 set PermitRootLogin <%= "#{ssh_allow_root}" %>
 set PasswordAuthentication <%= "#{ssh_allow_password}" %>
 set Protocol 2
@@ -21,9 +22,12 @@ if ssh_users.is_a? Array
   i = 0
   ssh_users.each do |ssh_user|
     i = i + 1
-    puts "set AllowUsers[#{i}] #{ssh_user}\n"
+    %>
+set AllowUsers[1]/<%= i %> "<%= ssh_user %>"
+    <%
   end
 elsif ssh_users != ''
-  puts "set AllowUsers #{ssh_users}\n"
-end
--%>
+  %>
+set AllowUsers[1]/1 "<%= ssh_users %>"
+  <%
+end %>
