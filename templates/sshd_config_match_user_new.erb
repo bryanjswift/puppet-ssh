@@ -1,0 +1,8 @@
+set Match[last()+1]/Condition/User <%= "#{name}" %>
+<% if rules.is_a? Array -%>
+<% rules.each do |rule| -%>
+<%= "set Match[last()]/Settings/#{rule}" %>
+<% end -%>
+<% elsif rules != '' -%>
+<%= "set Match[last()]/Settings/#{rule}" %>
+<% end -%>
