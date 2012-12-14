@@ -55,7 +55,7 @@ define ssh::user(
     augeas { "sshd_match_user_${name}":
       context => "/files${ssh::params::service_config}",
       changes => template('ssh/sshd_config_match_user.erb'),
-      onlyif  => "match Match[Condition/User = ${name}] size > 0",
+      onlyif  => "match Match[Condition/User = \"${name}\"] size > 0",
       require => [Class['ssh::config']],
       notify  => [Class['ssh::service']],
     }
@@ -63,7 +63,7 @@ define ssh::user(
     augeas { "sshd_match_user_${name}_new":
       context => "/files${ssh::params::service_config}",
       changes => template('ssh/sshd_config_match_user_new.erb'),
-      onlyif  => "match Match[Condition/User = ${name}] size == 0",
+      onlyif  => "match Match[Condition/User = \"${name}\"] size == 0",
       require => [Class['ssh::config']],
       notify  => [Class['ssh::service']],
     }
