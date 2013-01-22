@@ -1,3 +1,4 @@
+# $groups must exist before this is declared
 define ssh::user(
   $full_name       = '',
   $group           = '',
@@ -8,15 +9,6 @@ define ssh::user(
   $password        = '',
   $rules           = false,
 ) {
-
-  if ($groups != []) {
-    @group { $groups:
-      ensure => present,
-      tag    => 'sshusergroup'
-    }
-  }
-
-  Group <| tag == usergroup |>
 
   $group_name = $group ? {
     ''      => $name,
@@ -45,6 +37,7 @@ define ssh::user(
       user_name  => $name,
       group_name => $group_name,
       manage_ssh => $home_manage_ssh,
+      tag        => 'sshuser',
     }
   } elsif ($home_dir) {
     ssh::user::home { $name:
@@ -52,6 +45,7 @@ define ssh::user(
       user_name  => $name,
       group_name => $group_name,
       manage_ssh => $home_manage_ssh,
+      tag        => 'sshuser',
     }
   }
 
