@@ -9,11 +9,14 @@ define ssh::user(
   $rules           = false,
 ) {
 
-  if ($groups != [] and !defined(Group[$groups])) {
-    group { $groups:
+  if ($groups != []) {
+    @group { $groups:
       ensure => present,
+      tag    => 'sshusergroup'
     }
   }
+
+  Group <| tag == usergroup |>
 
   $group_name = $group ? {
     ''      => $name,
