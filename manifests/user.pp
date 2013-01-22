@@ -9,7 +9,7 @@ define ssh::user(
   $rules           = false,
 ) {
 
-  if ($groups != []) {
+  if ($groups != [] and !defined(Group[$groups])) {
     group { $groups:
       ensure => present,
     }
@@ -20,8 +20,10 @@ define ssh::user(
     default => $group,
   }
 
-  group { $group_name:
-    ensure => present,
+  if (!defined(Group[$group_name])) {
+    group { $group_name:
+      ensure => present,
+    }
   }
 
   user { $name:
